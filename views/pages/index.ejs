@@ -1,34 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <%- include ("../partials/header.ejs") %>
+  <title>Matkaklubi</title>
+  <%- include ("../partials/header") %>    
 </head>
-
 <body>
 
-  <%- include ("../partials/nav.ejs") %>
+<div class="paissektsioon">
+    <div class="container">
+        <%- include ("../partials/pais") %>
+        <div class="pealdis">
+            <div class="pealdis-pealkirjad">
+                <div class="rida1">
+                    <h2>Matkaklubi</h2>
+                    <div class="liblikas1"></div>
+                </div>
+                <div class="rida2">
+                    <div class="liblikas2"></div>
+                    <h1>Puhas higi</h1>
+                </div>
+                <div class="rida3">
+                    <h3>
+                        Tule koos meiega matkama
+                    </h3>
+                </div>
+                <button class="nupp-paises">Vaata matkasid</button>
 
-<div class="jumbotron text-center">
-  <div class="container">
-    <a href="/" class="lang-logo">
-      <img src="/lang-logo.png">
-    </a>
-    <h1>Sellest saab tegelikult Matakaklubi koduleht</h1>
-    <p>This is a sample Node application deployed to Heroku. It's a reasonably simple app - but a good foundation for understanding how to get the most out of the Heroku platform.</p>
-    <a type="button" class="btn btn-lg btn-default" href="https://devcenter.heroku.com/articles/getting-started-with-nodejs"><span class="glyphicon glyphicon-flash"></span> Getting Started on Heroku with Node.js</a>
-    <a type="button" class="btn btn-lg btn-primary" href="https://github.com/heroku/node-js-getting-started"><span class="glyphicon glyphicon-download"></span> Source on GitHub</a>
-  </div>
+            </div>
+            <div class="pealdis-pilt-ymbris">
+                <div class="pealdis-pilt"></div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="container">
-  <div class="alert alert-info text-center" role="alert">
-    To deploy your own copy, and learn the fundamentals of the Heroku platform, head over to the <a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs" class="alert-link">Getting Started on Heroku with Node.js</a> tutorial.
-  </div>
-  <hr>
-   <div class="alert alert-info text-center" role="alert">
-    Please do work through the Getting Started guide, even if you do know how to build such an application.  The guide covers the basics of working with Heroku, and will familiarize you with all the concepts you need in order to build and deploy your own apps.
-  </div>
+    <div class="row" id="matkad">
+        <div class="col-md-4 card">
+            <img class="card-img-top" src="./pildid/matkaja.png" alt="">
+            <div class="card-body">
+                <h4 class="card-title" >Matk läbi Eesti</h4>
+                <p>
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Neque expedita veniam repellat porro, quo hic fugiat ab, distinctio quod nulla vel laborum eius vero obcaecati architecto eos. Suscipit, neque at.
+                </p>
+                <a href="#" class="btn btn-primary">Registreeru</a>
+            </div>
+        </div>
+        <div class="col-md-4 card">
+            <img class="card-img-top" src="./pildid/matkaja.png" alt="">
+            <div class="card-body">
+                <h4 class="card-title" >Matk läbi Eesti</h4>
+                <p>
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Neque expedita veniam repellat porro, quo hic fugiat ab, distinctio quod nulla vel laborum eius vero obcaecati architecto eos. Suscipit, neque at.
+                </p>
+                <a href="#" class="btn btn-primary">Registreeru</a>
+            </div>
+        </div>
+        <div class="col-md-4 card">
+            <img class="card-img-top" src="./pildid/matkaja.png" alt="">
+            <div class="card-body">
+                <h4 class="card-title" >Matk läbi Eesti</h4>
+                <p>
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Neque expedita veniam repellat porro, quo hic fugiat ab, distinctio quod nulla vel laborum eius vero obcaecati architecto eos. Suscipit, neque at.
+                </p>
+                <a href="#" class="btn btn-primary">Registreeru</a>
+            </div>
+        </div>
+    </div>
+
 </div>
 
-
+<script src="matkaklubi.js"></script>
 </body>
 </html>

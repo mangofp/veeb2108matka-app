@@ -1,0 +1,128 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.paissektsioon {
+    background: transparent url('./pildid/Hills.png') 0% 0% no-repeat padding-box;
+    width: 100%;
+    height: 980px;
+}
+
+.paiserida {
+    padding-top: 37px;
+}
+
+.pais-logoala {
+    display: flex;
+}
+
+.pais-logo {
+    width: 100px;
+    height: 100px;
+    background-image: url('./pildid/klubilogo.png');
+    background-size: cover;
+    background-repeat: none;
+    font-weight: 800;
+    font-size: 33px;
+    letter-spacing: 0px;
+    color: #0B0B0B;
+    opacity: 1;
+}
+
+.pais-nimi {
+    font-weight: 800;
+    font-size: 33px;
+    letter-spacing: 0px;
+    color: #0B0B0B;
+    text-transform: uppercase;
+    width: 126px;
+    height: 75px;
+}
+
+.pais-menyy {
+    font-family: 'Montserrat', sans-serif;
+	font-size: 16.67px;
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: 2.67px;
+    margin-left: auto
+}
+
+.pais-menyy ul {
+    list-style-type: none;
+    justify-content: flex-end;
+}
+
+.pais-menyy li {
+    padding: 0px;
+    margin-left: 10px;
+    min-width: 100px;
+}
+
+.pais-menyy a {
+    color: #0B0B0B;
+}
+
+.pealdis {
+    display: flex;
+    color: #0B0B0B;
+    text-transform: uppercase;
+}
+
+.pealdis-pealkirjad {
+    padding-top: 231px;
+}
+
+.pealdis h1 {
+    font-size: 74.39px;
+    font-weight: 800;
+}
+.pealdis h2 {
+    font-size: 39.57px;
+    font-weight: 800;
+}
+.pealdis h3 {
+    font-size: 20.83px;
+    font-weight: 800;
+}
+
+.pealdis-pilt-ymbris {
+    display: none;
+}
+
+.pealdis-pilt {
+    background-image: url('./pildid/matkaja.png');
+    background-size: cover;
+    width: 100%;
+    min-height: 200px;
+}
+
+
+.nupp-paises {
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    font-weight: bolder;
+    letter-spacing: 2.25px;
+    font-size: 12px;
+    line-height: 46px;
+    padding-left: 22px;
+    padding-right: 22px;
+    border-radius: 0px;
+    color: white;
+    background-color: black;
+    margin-top: 20px;
+}
+@media screen and (min-width: 768px) {
+    .pealdis-pilt-ymbris {
+        display: block;
+        width: 50%;
+    } 
+}
+
+@media screen and (min-width: 1400px) {
+    .paissektsioon {
+    background: transparent url('./pildid/Hills@2x.png') 0% 0% no-repeat padding-box;
+    background-size: cover;
+    }   
+    
+}
