@@ -1,6 +1,6 @@
 const express = require('express')
 const path = require('path')
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 8000
 
 function esileht(req, res) {
   return res.render("pages/index")
@@ -14,4 +14,5 @@ express()
 .get('/', esileht)
 .get('/kontakt', (req, res) => res.render("pages/kontakt"))
 .get('/uudised', (req, res) => res.render("pages/uudised"))
+.get('/registreeru', (req, res) => res.render("pages/registreeru"))
 .listen(PORT, () => console.log(`Listening on ${ PORT }`))
