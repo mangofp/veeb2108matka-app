@@ -4,15 +4,17 @@
 <head>
     <%- include ("../partials/header") %>
     <title>Matkaklubi - kontakt</title>
-    <script src="kontakt.js"></script>
+    <script src="/kontakt.js"></script>
 </head>
 <body>
 <div class="container">
     <%- include ("../partials/pais") %>
-    <h2>Registreeru matkale Jalgsimatk ümber Pühajärve</h2>
+    <h2>Registreeru matkale <%=  matk.nimetus %></h2>
+
+    <img src="<%= matk.pildiUrl %>" alt="">
 
     <div>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur atque iure ratione temporibus! Quis, aperiam eligendi officia minima iusto voluptatibus expedita tempore deserunt molestias in eum repellendus porro! Repellat, reprehenderit.
+        <%= matk.kirjeldus %>
     </div>
 
     <div class="row">

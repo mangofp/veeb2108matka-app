@@ -35,36 +35,18 @@
 </div>
 <div class="container">
     <div class="row" id="matkad">
-        <div class="col-md-4 card">
-            <img class="card-img-top" src="./pildid/matkaja.png" alt="">
-            <div class="card-body">
-                <h4 class="card-title" >Matk läbi Eesti</h4>
-                <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Neque expedita veniam repellat porro, quo hic fugiat ab, distinctio quod nulla vel laborum eius vero obcaecati architecto eos. Suscipit, neque at.
-                </p>
-                <a href="#" class="btn btn-primary">Registreeru</a>
-            </div>
-        </div>
-        <div class="col-md-4 card">
-            <img class="card-img-top" src="./pildid/matkaja.png" alt="">
-            <div class="card-body">
-                <h4 class="card-title" >Matk läbi Eesti</h4>
-                <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Neque expedita veniam repellat porro, quo hic fugiat ab, distinctio quod nulla vel laborum eius vero obcaecati architecto eos. Suscipit, neque at.
-                </p>
-                <a href="#" class="btn btn-primary">Registreeru</a>
-            </div>
-        </div>
-        <div class="col-md-4 card">
-            <img class="card-img-top" src="./pildid/matkaja.png" alt="">
-            <div class="card-body">
-                <h4 class="card-title" >Matk läbi Eesti</h4>
-                <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Neque expedita veniam repellat porro, quo hic fugiat ab, distinctio quod nulla vel laborum eius vero obcaecati architecto eos. Suscipit, neque at.
-                </p>
-                <a href="#" class="btn btn-primary">Registreeru</a>
-            </div>
-        </div>
+        <% for (const matk of matkad) { %>
+            <div class="col-md-4 card">
+                <img class="card-img-top" src="<%= matk.pildiUrl %>" alt="">
+                <div class="card-body">
+                    <h4 class="card-title" ><%= matk.nimetus %></h4>
+                    <p>
+                        <%= matk.kirjeldus %>
+                    </p>
+                    <a href="/registreeru/<%= matk.id %>" class="btn btn-primary">Registreeru</a>
+                </div>
+            </div> 
+        <% } %>
     </div>
 
 </div>
