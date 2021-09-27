@@ -10,7 +10,19 @@
 <div class="container">
     <%- include ("../partials/pais") %>
     <h2>Matkaklubi uudised</h2>
-    siia tulevad uudised
+    <div class="uudistevoog">
+        <% for (const uudis of uudised) { %>
+            <div class="uudis">
+                <h3 class="uudis-pealkiri">
+                    <%= uudis.pealkiri %>
+                </h3>
+                <div class="uudis-sisu">
+                    <%= uudis.tekst %>
+                </div>
+            </div>
+        <% } %>
+    </div>
+    
 </div>
 </body>
 

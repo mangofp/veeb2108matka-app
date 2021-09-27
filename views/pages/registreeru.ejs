@@ -18,7 +18,7 @@
     </div>
 
     <div class="row">
-        <form action="#">
+        <form action="#" id="registreerumisVorm">
             <div class="form-group">
                 <label for="nimi">Sinu nimi:</label>
                 <input type="text" class="form-control" id="nimi" name="nimi">
@@ -31,7 +31,8 @@
                 <label for="markus">Märkus:</label>
                 <textarea class="form-control" name="markus" id="markus" cols="30" rows="5"></textarea>
             </div>
-            <button onclick="return saadaVorm()" class="btn btn-default">Registreeru</button>
+            <input type="hidden" name="indeks" id="indeks" value=<%= matk.id %>>
+            <button onclick="return registreeri()" class="btn btn-default">Registreeru</button>
         </form>
     </div>  
 </div>

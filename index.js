@@ -43,6 +43,11 @@ const uudised = [
     id:1,
     pealkiri: "Uudis 2",
     tekst: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quas dolore fugiat earum cum libero exercitationem fugit facere voluptatibus incidunt, illo iste eos. Facilis veritatis quos molestias dicta itaque rerum!"
+  },
+  {
+    id:3,
+    pealkiri: "Uudis 3",
+    tekst: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quas dolore fugiat earum cum libero exercitationem fugit facere voluptatibus incidunt, illo iste eos. Facilis veritatis quos molestias dicta itaque rerum!"
   }
 ]
 
@@ -60,11 +65,24 @@ function naitaRegistreerumist(req, res) {
 } 
 
 function registreeriOsaleja(req, res) {
-  const matk = matkad[req.params.matk]
-  console.log(matk)
+  const matk = matkad[req.params.indeks]
   matk.osalejad.push(req.query)
   console.log(matk)
   return res.send("Registreeruti")
+}
+
+function tagastaMatkalOsalejad(req, res) {
+  const matk = matkad[req.params.indeks]
+  return res.send(matk.osalejad)
+}
+
+function tagastaMatkadeAndmed(req, res) {
+  return res.json(matkad.map((matk) => {
+    return {
+      indeks: matk.id,
+      nimetus: matk.nimetus
+    }
+  } ))
 }
 
 express()
@@ -74,7 +92,9 @@ express()
 .get('/tervitus', (req, res) => res.end("Tervitused matkaklubist!"))
 .get('/', esileht)
 .get('/kontakt', (req, res) => res.render("pages/kontakt"))
-.get('/uudised', (req, res) => res.render("pages/uudised"))
+.get('/uudised', (req, res) => res.render("pages/uudised", {uudised: uudised}))
 .get('/registreeru/:matk', naitaRegistreerumist)
-.get('/registreerimine/:matk', registreeriOsaleja)
+.get('/api/registreerimine/:indeks', registreeriOsaleja)
+.get('/api/matkalosalejad/:indeks', tagastaMatkalOsalejad)
+.get('/api/matkad', tagastaMatkadeAndmed)
 .listen(PORT, () => console.log(`Listening on ${ PORT }`))
