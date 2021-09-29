@@ -1,6 +1,12 @@
 const express = require('express')
+const { MongoClient } = require("mongodb");
+
 const path = require('path')
 const PORT = process.env.PORT || 8000
+
+const andmebaas = "matka-app-2108"
+const salasona = "hernesupp55"
+const mongoUrl = `mongodb+srv://matka-app:${salasona}@cluster0.vpkdv.mongodb.net/${andmebaas}?retryWrites=true&w=majority`
 
 const matk1 = {
   id: 0,
@@ -64,10 +70,23 @@ function naitaRegistreerumist(req, res) {
   return res.render("pages/registreeru", {matk: matkad[matk]})
 } 
 
-function registreeriOsaleja(req, res) {
+async function registreeriOsaleja(req, res) {
+  const client = new MongoClient(mongoUrl);
   const matk = matkad[req.params.indeks]
   matk.osalejad.push(req.query)
   console.log(matk)
+
+  try {
+    await client.connect();
+    const database = client.db(andmebaas);
+    const registreerumised = database.collection("registreerumised");
+    // create a document to insert
+    const osaleja = req.query
+    const result = await registreerumised.insertOne(osaleja);
+    console.log(`A document was inserted with the _id: ${result.insertedId}`);
+  } finally {
+    await client.close();
+  }
   return res.send("Registreeruti")
 }
 
@@ -76,8 +95,13 @@ function tagastaMatkalOsalejad(req, res) {
   return res.send(matk.osalejad)
 }
 
+function tagastaMatkad(req, res) {
+  return res.send(matkad)
+}
+
+
 function tagastaMatkadeAndmed(req, res) {
-  return res.json(matkad.map((matk) => {
+  return res.send(matkad.map((matk) => {
     return {
       indeks: matk.id,
       nimetus: matk.nimetus
@@ -96,5 +120,5 @@ express()
 .get('/registreeru/:matk', naitaRegistreerumist)
 .get('/api/registreerimine/:indeks', registreeriOsaleja)
 .get('/api/matkalosalejad/:indeks', tagastaMatkalOsalejad)
-.get('/api/matkad', tagastaMatkadeAndmed)
+.get('/api/matkad', tagastaMatkad)
 .listen(PORT, () => console.log(`Listening on ${ PORT }`))

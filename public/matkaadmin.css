@@ -1,0 +1,7 @@
+li.matkaValik {
+    cursor: pointer;
+}
+
+li.matkaValik:hover {
+    font-weight: bold;
+}
