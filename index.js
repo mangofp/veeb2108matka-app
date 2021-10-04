@@ -5,8 +5,10 @@ const path = require('path')
 const PORT = process.env.PORT || 8000
 
 const andmebaas = "matka-app-2108"
+const uudisedCollection = "uudised"
 const salasona = "hernesupp55"
 const mongoUrl = `mongodb+srv://matka-app:${salasona}@cluster0.vpkdv.mongodb.net/${andmebaas}?retryWrites=true&w=majority`
+const client = new MongoClient(mongoUrl);
 
 const matk1 = {
   id: 0,
@@ -39,7 +41,7 @@ const matk4 = {
 
 const matkad = [matk1, matk2, matk3, matk4]
 
-const uudised = [
+let uudised = [
   {
     id:0,
     pealkiri: "Uudis 1",
@@ -71,7 +73,6 @@ function naitaRegistreerumist(req, res) {
 } 
 
 async function registreeriOsaleja(req, res) {
-  const client = new MongoClient(mongoUrl);
   const matk = matkad[req.params.indeks]
   matk.osalejad.push(req.query)
   console.log(matk)
@@ -82,17 +83,32 @@ async function registreeriOsaleja(req, res) {
     const registreerumised = database.collection("registreerumised");
     // create a document to insert
     const osaleja = req.query
-    const result = await registreerumised.insertOne(osaleja);
-    console.log(`A document was inserted with the _id: ${result.insertedId}`);
+    osaleja.matk = req.params.indeks
+    const result = await registreerumised.insertOne(osaleja)
+    console.log(`A document was inserted with the _id: ${result.insertedId}`)
   } finally {
     await client.close();
   }
   return res.send("Registreeruti")
 }
 
-function tagastaMatkalOsalejad(req, res) {
+async function tagastaMatkalOsalejad(req, res) {
+  let result
   const matk = matkad[req.params.indeks]
-  return res.send(matk.osalejad)
+
+  try {
+    await client.connect();
+    const database = client.db(andmebaas);
+    const registreerumised = database.collection("registreerumised");
+    const filter = { matk: req.params.indeks}
+    
+    result = await registreerumised.find(filter).toArray()
+    console.log(`A document was inserted with the _id: ${result.insertedId}`)
+  } finally {
+    await client.close();
+  }
+
+  return res.send(result)
 }
 
 function tagastaMatkad(req, res) {
@@ -109,6 +125,62 @@ function tagastaMatkadeAndmed(req, res) {
   } ))
 }
 
+async function lisaMatk(req, res) {
+  const uusMatk = {
+    id: matkad.length,
+    nimetus: req.query.nimetus,
+    kirjeldus: req.query.kirjeldus,
+    pildiUrl: req.query.pildiUrl,
+    osalejad: []
+  }
+  matkad.push(uusMatk)
+
+  try {
+    await client.connect();
+    const database = client.db(andmebaas);
+    const matkad = database.collection("matkad");
+    const result = await matkad.insertOne(uusMatk)
+    console.log(`A document was inserted with the _id: ${result.insertedId}`)
+  } finally {
+    await client.close();
+  }
+  return res.send(uusMatk)
+}
+
+async function lisaUudis(req, res) {
+  const uusUudis = {
+    id: uudised.length,
+    pealkiri: req.query.pealkiri,
+    tekst: req.query.sisu
+  }
+  uudised.push(uusUudis)
+  try {
+    await client.connect();
+    const database = client.db(andmebaas)
+    const uudisedMongo = database.collection("uudised")
+
+    const result = await uudisedMongo.insertOne(uusUudis)
+  } finally {
+    await client.close();
+  }
+  res.send(uusUudis)
+}
+
+async function loeUudisedMallu() {
+  try {
+    await client.connect();
+    const database = client.db(andmebaas);
+    const uudisedMongo = database.collection("uudised");
+    
+    result = await uudisedMongo.find().toArray()
+    uudised = result
+  } finally {
+    await client.close();
+  }
+}
+
+loeUudisedMallu()
+
 express()
 .use(express.static(path.join(__dirname, 'public')))
 .set('views', path.join(__dirname, 'views'))
@@ -120,5 +192,7 @@ express()
 .get('/registreeru/:matk', naitaRegistreerumist)
 .get('/api/registreerimine/:indeks', registreeriOsaleja)
 .get('/api/matkalosalejad/:indeks', tagastaMatkalOsalejad)
+.get('/api/lisamatk', lisaMatk)
+.get('/api/lisauudis', lisaUudis)
 .get('/api/matkad', tagastaMatkad)
 .listen(PORT, () => console.log(`Listening on ${ PORT }`))
